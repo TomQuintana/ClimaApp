@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 import colors from 'colors';
 
-const preguntas = [
+const questions = [
   {
     type: 'list',
     name: 'opcion',
@@ -24,8 +24,17 @@ const preguntas = [
 ];
 
 
-const leerInput = async( message ) => {
+const inquirerMenu = async() => {
+  console.log('===========================')
+  console.log('Seleccione una Opcion')
+  console.log('===========================\n')
 
+  const {opcion} = await inquirer.prompt(questions)
+  return opcion
+}
+
+
+const leerInput = async( message ) => {
   const question = [
     {
       type: 'input',
@@ -44,8 +53,23 @@ const leerInput = async( message ) => {
   return desc;
 }
 
+const pausa = async() => {
+    
+    const question = [
+        {
+            type: 'input',
+            name: 'enter',
+            message: `Presione ${ 'enter'.green } para continuar`
+        }
+    ];
+
+    console.log('\n');
+    await inquirer.prompt(question);
+}
 
 
 export {
   leerInput,
+  inquirerMenu,
+  pausa
 }
