@@ -1,3 +1,4 @@
+"use strict";
 // import {  inquirerMenu} from './src/helpers/inquirer'
 //
 // let opt:any
@@ -6,6 +7,5 @@
 // console.log({ opt });
 //
 //
-
 console.log('hola');
-
+//# sourceMappingURL=app.js.map
