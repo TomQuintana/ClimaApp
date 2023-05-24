@@ -2,19 +2,25 @@
   "name": "climaapp",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "type":"module",
+  "main": "app.ts",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node app.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@inquirer/input": "^1.1.2",
+    "@inquirer/select": "^1.1.7",
+    "@types/inquirer": "^9.0.3",
+    "axios": "^1.4.0",
     "colors": "^1.4.0",
-    "inquirer": "^9.2.5"
+    "inquirer": "^9.2.6"
   }
 }
