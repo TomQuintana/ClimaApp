@@ -21,6 +21,7 @@ const inquirerMenu = async () => {
       },
     ]
   })
+
   return questions
 }
 
@@ -29,9 +30,6 @@ const pausa = async() => {
 
   const answer = await input({ message: `Presione ${ 'enter'} para continuar` });
   console.log(answer);
-  
-
-  console.log('\n');
 }
 
 

@@ -4,7 +4,7 @@ let opt:any
 
 console.log('=====================');
 console.log('Seleccione una Opcion');
-console.log('=====================');
+console.log('===================== \n');
 
 while (opt !== 0) {
   opt = await inquirerMenu()
