@@ -33,7 +33,39 @@ const pausa = async() => {
 }
 
 
+const leerInput = async() => {
+  const value = await input({
+    message: 'Please enter a value'
+  })
+  
+}
+
+const listarLugares = async( lugares: string[] ) => {
+  
+  const choices = lugares.map(( lugar:any, i:number ) => {
+    const idx = `${i + 1}.`;
+
+    return {
+      value: lugar.id,
+      name:  `${ idx } ${ lugar.name }`
+    }
+  })
+  
+  console.log({ choices });
+  
+  
+  const questions = await select({
+    message: '¿Qué desea hacer?',
+    choices
+  })
+  
+  return questions
+}
+
+
 export {
   inquirerMenu,
-  pausa
+  pausa,
+  leerInput,
+  listarLugares
 }
