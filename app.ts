@@ -1,7 +1,8 @@
 import {  inquirerMenu, leerInput, pausa, listarLugares } from './src/helpers/inquirer'
 import Busqueda from './src/helpers/busquedas';
 
-const busquedas = new Busqueda
+
+const search = new Busqueda
 let opt:any
 
 console.log('=====================');
@@ -13,18 +14,23 @@ while (opt !== 0) {
 
   switch(opt) {
     case 1 : 
-      // Show message
       const cityValue = await leerInput()
 
-      // search City
-      const place = await busquedas.ciudad(cityValue)
+      const place = await search.ciudad(cityValue)
       
-      const putPlace = await listarLugares(place);
-      console.log(putPlace);
-      
-      
+      const placeId = await listarLugares(place);
 
-    break;
+      const placeWeather = await search.cityWeather(placeId, place)
+
+      console.clear();
+      console.log('\nCity Information\n');
+      console.log('Ciry:', placeWeather.name );
+      console.log('Temperatura:', placeWeather.temp);
+      console.log('Minimum:', placeWeather.min );
+      console.log('Maximum:', placeWeather.max );
+      console.log('Whats the weather like:',  placeWeather.description );     
+
+      break;
   }
 
   if ( opt !== 0 ) await pausa();

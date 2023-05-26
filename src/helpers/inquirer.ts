@@ -1,8 +1,6 @@
 import select, { Separator } from '@inquirer/select';
 import input from '@inquirer/input';
 
-// import { input } from '@inquirer/prompts';
-
 const inquirerMenu = async () => {
   const questions = await select({
     message: '¿Qué desea hacer?',
@@ -27,9 +25,8 @@ const inquirerMenu = async () => {
 
 
 const pausa = async() => {
-
   const answer = await input({ message: `Presione ${ 'enter'} para continuar` });
-  console.log(answer);
+  return answer
 }
 
 
@@ -37,7 +34,8 @@ const leerInput = async() => {
   const value = await input({
     message: 'Please enter a value'
   })
-  
+
+  return value
 }
 
 const listarLugares = async( lugares: string[] ) => {
@@ -50,9 +48,6 @@ const listarLugares = async( lugares: string[] ) => {
       name:  `${ idx } ${ lugar.name }`
     }
   })
-  
-  console.log({ choices });
-  
   
   const questions = await select({
     message: '¿Qué desea hacer?',
