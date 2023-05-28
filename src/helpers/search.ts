@@ -1,18 +1,26 @@
+import fs from 'fs'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid';
 import dotenv from 'dotenv'
+import chalk from 'chalk';
 
 dotenv.config()
 
-export default class Busqueda {
-  
-    historial:Array<string> = [];
+export default class Search {
+
+  historial:Array<string> = [];
+  dbPath = './database.json'
 
   constructor() {
+    this.readDB()
   }
 
-  async ciudad(place: any) {
+  async city(place: string) {
     
+    if (place == '') {
+      return console.log(chalk.bgRed('Please Enter a Value'));
+    }
+
     try {
       const limit = 5;
       const {data} = await axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=${limit}&appid=${process.env.APPID_WEATHER}`);
@@ -23,18 +31,18 @@ export default class Busqueda {
         lon: place.lon,
         id: uuidv4()
       }))
-  
+
     } catch (error) {
       console.log(error);
-      
     }
-    
+
   }
 
   async cityWeather ( id:any, places:Array<Object>) {
     let lat = ''
     let lon = ''
     let name = ''
+
     places.forEach(( element:any ) => {
       if (element.id == id) {
         name = element.name
@@ -42,14 +50,13 @@ export default class Busqueda {
         lon = element.lon
       }
     });
-    
+
     const {data} = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.APPID_WEATHER}`);
-    console.log(data);
-    
+
     let description = ''
-   data.weather.forEach(( element: any ) => {
+    data.weather.forEach(( element: any ) => {
       return description = element.description
-   }); 
+    }); 
 
     return {
       description,
@@ -60,9 +67,10 @@ export default class Busqueda {
     }
   }
 
-  agregarHistorial( lugar:string ) {
+  addHistory( lugar:string ) {
+    if(this.historial.includes(lugar.toLocaleLowerCase())) {
+      console.log('Ya existe');
 
-    if(this.historial.includes(lugar)) {
       return
     }
 
@@ -70,6 +78,22 @@ export default class Busqueda {
 
     this.historial.unshift( lugar.toLocaleLowerCase() );
 
-    // Grabar en DB
+    this.saveDB()
+  }
+
+  saveDB() {
+    const payload = {
+      historial: this.historial
+    }
+
+    fs.writeFileSync(this.dbPath, JSON.stringify(payload))
+  }
+
+  readDB() {
+    if(! fs.existsSync(this.dbPath)) return;
+    const info = fs.readFileSync(this.dbPath, {encoding: 'utf-8'})
+    const data = JSON.parse(info)
+
+    this.historial = data.historial;
   }
 }

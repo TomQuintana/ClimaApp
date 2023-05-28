@@ -1,12 +1,12 @@
-import {  inquirerMenu, leerInput, pausa, listarLugares } from './src/helpers/inquirer'
-import Busqueda from './src/helpers/busquedas';
+import {  inquirerMenu, leerInput, pausa, listPlaces} from './src/helpers/inquirer'
+import Search from './src/helpers/search';
+import chalk from 'chalk';
 
-
-const search = new Busqueda
+const search = new Search; 
 let opt:any
 
 console.log('=====================');
-console.log('Seleccione una Opcion');
+console.log(chalk.blue('Seleccione una Opcion'));
 console.log('===================== \n');
 
 while (opt !== 0) {
@@ -16,21 +16,34 @@ while (opt !== 0) {
     case 1 : 
       const cityValue = await leerInput()
 
-      const place = await search.ciudad(cityValue)
+      const place = await search.city(cityValue)
       
-      const placeId = await listarLugares(place);
+      const placeId = await listPlaces(place);
+      
+      if (placeId == '0' || placeId == undefined) continue;
 
       const placeWeather = await search.cityWeather(placeId, place)
+      
+
+      search.addHistory(placeWeather.name)
 
       console.clear();
-      console.log('\nCity Information\n');
-      console.log('Ciry:', placeWeather.name );
-      console.log('Temperatura:', placeWeather.temp);
-      console.log('Minimum:', placeWeather.min );
-      console.log('Maximum:', placeWeather.max );
-      console.log('Whats the weather like:',  placeWeather.description );     
+      console.log(chalk.bold.blue('\nCity Information\n'));
+      console.log('City:', chalk.bold.greenBright(placeWeather.name));
+      console.log('Temperatura:', chalk.green(placeWeather.temp));
+      console.log('Minimum:', chalk.green( placeWeather.min ) );
+      console.log('Maximum:', chalk.green( placeWeather.max ) );
+      console.log('Whats the weather like:', chalk.green(placeWeather.description));     
+      console.log('\n');
+      
 
       break;
+
+    case 2:
+      search.historial.forEach(( place:string , i:any ) => {
+        const idx = `${i + 1}.`
+        console.log(`${idx} ${place}`);
+      })
   }
 
   if ( opt !== 0 ) await pausa();
