@@ -5,9 +5,10 @@ import chalk from 'chalk';
 const search = new Search; 
 let opt:any
 
-console.log('=====================');
-console.log(chalk.blue('Seleccione una Opcion'));
-console.log('===================== \n');
+console.clear();
+console.log('================');
+console.log(chalk.bold.cyan('Select an Option'));
+console.log('================ \n');
 
 while (opt !== 0) {
   opt = await inquirerMenu()
@@ -24,16 +25,15 @@ while (opt !== 0) {
 
       const placeWeather = await search.cityWeather(placeId, place)
       
-
       search.addHistory(placeWeather.name)
 
       console.clear();
-      console.log(chalk.bold.blue('\nCity Information\n'));
-      console.log('City:', chalk.bold.greenBright(placeWeather.name));
-      console.log('Temperatura:', chalk.green(placeWeather.temp));
-      console.log('Minimum:', chalk.green( placeWeather.min ) );
-      console.log('Maximum:', chalk.green( placeWeather.max ) );
-      console.log('Whats the weather like:', chalk.green(placeWeather.description));     
+      console.log(chalk.bgBlue.bold('\nCity Information\n'));
+      console.log(chalk.bold('City:'), chalk.bold.greenBright(placeWeather.name));
+      console.log(chalk.bold('Temperatura:'),chalk.bold.yellow(placeWeather.temp));
+      console.log(chalk.bold('Minimum:'), chalk.bold.yellow( placeWeather.min ) );
+      console.log(chalk.bold('Maximum:'),  chalk.bold.yellow( placeWeather.max ) );
+      console.log(chalk.bold('Whats the weather like:'), chalk.bold.yellow(placeWeather.description));     
       console.log('\n');
       
 

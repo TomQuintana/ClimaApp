@@ -52,7 +52,7 @@ const listPlaces = async( lugares: string[] ) => {
   })
   
   const questions = await select({
-    message: 'What do you want to do?',
+    message: 'Choose a Place ?',
     choices
   })
   

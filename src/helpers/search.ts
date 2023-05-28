@@ -26,7 +26,7 @@ export default class Search {
       const {data} = await axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=${limit}&appid=${process.env.APPID_WEATHER}`);
 
       return data.map( (place: any) => ({
-        name: `${ place.name }, ${place.state}, ${place.country}`,
+        name: `${ place.name }, ${place.country}`,
         lat: place.lat,
         lon: place.lon,
         id: uuidv4()
