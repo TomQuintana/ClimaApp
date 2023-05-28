@@ -33,7 +33,7 @@ const pausa = async() => {
 
 const leerInput = async() => {
   const value = await input({
-    message: 'Please enter a value'
+    message: 'Please enter a value:'
   })
   console.clear();
 
