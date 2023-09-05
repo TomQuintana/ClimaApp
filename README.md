@@ -1,16 +1,11 @@
-## About The Project
+<h1 align="center">Weather App</h1>
 
 This project consists of a terminal app where you can check the weather of any city
 
 ![Logo de OpenAI](https://res.cloudinary.com/dmg3cl9dc/image/upload/v1685302127/Screenshot_2023-05-28_at_16.28.09_tdjykz.png)
 
 ### Built With
-
-This project use inquirer libraries for generate a prompt, input and select. Is built using node and typescript
-
-- Node.js
-- typescript
-- Inquirer
+![Typescript.js](https://img.shields.io/badge/-Typescript-blue) ![inquirer](https://img.shields.io/badge/-Inquirer-green) 
 
 ## Getting Started
 ### Installation
